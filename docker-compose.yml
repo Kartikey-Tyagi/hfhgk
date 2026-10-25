@@ -1,0 +1,53 @@
+# ==============================================================================
+# Wind Forecast Intelligence — Multi-Container Docker Compose
+# Runs the complete application: Python FastAPI backend + React/Nginx frontend
+# ==============================================================================
+
+services:
+  # ----------------------------------------------------------------------------
+  # Backend: Python 3.12 / FastAPI Service
+  # ----------------------------------------------------------------------------
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: wind-forecast-backend
+    restart: unless-stopped
+    environment:
+      - ELEXON_BASE_URL=${ELEXON_BASE_URL:-https://data.elexon.co.uk/bmrs/api/v1}
+      - ELEXON_REQUEST_TIMEOUT=${ELEXON_REQUEST_TIMEOUT:-30.0}
+      - DEFAULT_CUTOFF_TIME=${DEFAULT_CUTOFF_TIME:-12:00:00}
+    # Keep port 8000 private to the internal Compose bridge network.
+    # The frontend Nginx container reverse-proxies all /api/ calls to http://backend:8000.
+    expose:
+      - "8000"
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/api/health"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+      start_period: 5s
+    networks:
+      - wind-network
+
+  # ----------------------------------------------------------------------------
+  # Frontend: Production Nginx Server & Reverse Proxy
+  # ----------------------------------------------------------------------------
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: wind-forecast-frontend
+    restart: unless-stopped
+    ports:
+      - "8080:80"
+    depends_on:
+      backend:
+        condition: service_healthy
+    networks:
+      - wind-network
+
+networks:
+  wind-network:
+    driver: bridge
+    name: wind-forecast-network

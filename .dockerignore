@@ -1,0 +1,45 @@
+# Version control
+.git/
+.gitignore
+
+# Virtual environments
+.venv/
+venv/
+ENV/
+env/
+
+# Python bytecode and caches
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+
+# Test and coverage artifacts
+.pytest_cache/
+.coverage
+htmlcov/
+.tox/
+.nox/
+
+# Node / Frontend local build artifacts
+node_modules/
+**/node_modules/
+dist/
+**/dist/
+
+# Local environment files and secrets
+.env
+.env.local
+.env.*.local
+backend/.env
+frontend/.env
+
+# OS and IDE files
+.DS_Store
+.vscode/
+.idea/
+
+# Logs and scratch
+*.log
+scratch/

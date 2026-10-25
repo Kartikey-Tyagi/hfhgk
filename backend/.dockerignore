@@ -1,0 +1,30 @@
+# Virtual environments
+.venv/
+venv/
+ENV/
+env/
+
+# Python bytecode and caches
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+
+# Test and coverage artifacts
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Local environment files and secrets
+.env
+.env.local
+.env.*.local
+
+# OS and IDE files
+.DS_Store
+.vscode/
+.idea/
+
+# Logs
+*.log
