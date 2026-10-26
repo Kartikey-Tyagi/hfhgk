@@ -217,9 +217,6 @@ export const Controls: React.FC<ControlsProps> = ({
               />
               <span className="utc-suffix-pill">UTC</span>
             </div>
-            <span className="cutoff-help-text">
-              Applied on the day before delivery (D−1). The 12:00 UTC cutoff is an assessment baseline.
-            </span>
           </div>
 
           {/* Evaluate Action */}
