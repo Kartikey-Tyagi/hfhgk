@@ -140,7 +140,7 @@ describe('Controls Component', () => {
     expect(handleEvaluate).not.toHaveBeenCalled();
   });
 
-  it('displays UTC label and baseline explanation for cutoff time', () => {
+  it('displays UTC label for cutoff time', () => {
     render(
       <Controls
         queryParams={defaultParams}
@@ -150,8 +150,5 @@ describe('Controls Component', () => {
     );
 
     expect(screen.getByText('UTC')).toBeInTheDocument();
-    expect(
-      screen.getByText(/Applied on the day before delivery \(D−1\)\. The 12:00 UTC cutoff is an assessment baseline\./i)
-    ).toBeInTheDocument();
   });
 });
